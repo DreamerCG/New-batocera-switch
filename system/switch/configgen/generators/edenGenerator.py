@@ -330,8 +330,8 @@ class EdenGenerator(Generator):
             st = os.symlink("/userdata/system/configs/yuzu","/userdata/system/.local/share/"+emudir)
 
         #Link Yuzu Config Directory to /system/configs/yuzu
-        mkdir_if_not_exists(HOME / "/.config")
-
+        mkdir_if_not_exists(Path("/userdata/.config"))
+        
         #Remove .config/yuzu if it exists and isnt' a link
         if os.path.exists("/userdata/system/.config/"+emudir):
             if not os.path.islink("/userdata/system/.config/"+emudir):
@@ -342,23 +342,24 @@ class EdenGenerator(Generator):
 
         #Remove configs/emu if it exists and isnt' a link
         if os.path.exists("/userdata/system/configs/"+emudir):
-            if not os.path.islink("/userdata/system/.config/"+emudir):
-                shutil.rmtree("/userdata/system/.config/"+emudir)
+            if not os.path.islink("/userdata/system/configs/"+emudir):
+                shutil.rmtree("/userdata/system/configs/"+emudir)
 
         if not os.path.exists("/userdata/system/configs/"+emudir):
             st = os.symlink("/userdata/system/configs/yuzu","/userdata/system/configs/"+emudir)
 
         cachedir = ".cache/" + emudir
         #Link Yuzu Saves Directory to /userdata/saves/yuzu
-        mkdir_if_not_exists(HOME / ".cache")
-        mkdir_if_not_exists(HOME / cachedir)
+        mkdir_if_not_exists(Path("/userdata/.cache"))
+        mkdir_if_not_exists(Path("/userdata/" + cachedir))
 
         #remove game_list if it exists and isn't a link
         if os.path.exists("/userdata/system/.cache/"+emudir+"/game_list"):
             if not os.path.islink("/userdata/system/.cache/"+emudir+"/game_list"):
                 shutil.rmtree("/userdata/system/.cache/"+emudir+"/game_list")
 
-        mkdir_if_not_exists(SAVES / "./yuzu/game_list")
+        mkdir_if_not_exists(Path("/userdata/save/yuzu"))
+        mkdir_if_not_exists(Path("/userdata/save/yuzu/game_list"))
         if not os.path.exists("/userdata/system/.cache/"+emudir+"/game_list"):
             st = os.symlink("/userdata/saves/yuzu/game_list","/userdata/system/.cache/"+emudir+"/game_list")
 
@@ -598,7 +599,7 @@ class EdenGenerator(Generator):
             yuzuConfig.set("Renderer", "resolution_setup", system.config["resolution_scale"])
             yuzuConfig.set("Renderer", "resolution_setup\\default", "false")
         else:
-            yuzuConfig.set("Renderer", "resolution_setup", "3")
+            yuzuConfig.set("Renderer", "resolution_setup", "2")
             yuzuConfig.set("Renderer", "resolution_setup\\default", "true")
 
         # Scaling filter
@@ -606,7 +607,7 @@ class EdenGenerator(Generator):
             yuzuConfig.set("Renderer", "scaling_filter", system.config["scale_filter"])
             yuzuConfig.set("Renderer", "scaling_filter\\default", "false")
         else:
-            yuzuConfig.set("Renderer", "scaling_filter", "0")
+            yuzuConfig.set("Renderer", "scaling_filter", "1")
             yuzuConfig.set("Renderer", "scaling_filter\\default", "true")
 
         # Anti aliasing method
@@ -785,7 +786,7 @@ class EdenGenerator(Generator):
 
          if key in padInputs:
 
-             if emulator in "citron-emu" and key in ['left', 'right', 'up', 'down']:
+             if emulator == "citron-emu" and key in ['left', 'right', 'up', 'down']:
                  return ("hat:0,pad:0,direction:{},guid:{},port:{},engine:sdl").format(key, padGuid, port)
 
              input = padInputs[key]
