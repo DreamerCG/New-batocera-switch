@@ -361,7 +361,7 @@ class EdenGenerator(Generator):
             st = os.symlink("/userdata/saves/yuzu/game_list","/userdata/system/.cache/"+emudir+"/game_list")
 
         yuzuConfig = str(CONFIGS) + '/yuzu/qt-config.ini'
-        yuzuConfigTemplate = '/userdata/system/switch/qt-config.ini.template'
+        yuzuConfigTemplate = '/userdata/system/switch/configgen/qt-config.ini.template'
 
         EdenGenerator.writeYuzuConfig(yuzuConfig, yuzuConfigTemplate, system, playersControllers, sdlversion, emulator)
 
