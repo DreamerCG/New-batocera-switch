@@ -450,6 +450,8 @@ class EdenGenerator(Generator):
 
         yuzuConfig.set("UI", "enable_discord_presence\\default", "false")
 
+        yuzuConfig.set("UI", "check_for_updates_on_start", "false")
+        yuzuConfig.set("UI", "check_for_updates_on_start\default", "false")
 
         # Single Window Mode
         if system.isOptSet('single_window'):
