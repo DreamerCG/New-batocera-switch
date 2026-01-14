@@ -423,18 +423,17 @@ class EdenGenerator(Generator):
         if not os.path.exists("/userdata/system/configs/"+emudir):
             st = os.symlink("/userdata/system/configs/yuzu","/userdata/system/configs/"+emudir)
 
-        cachedir = ".cache/" + emudir
         #Link Yuzu Saves Directory to /userdata/saves/yuzu
-        mkdir_if_not_exists(Path("/userdata/.cache"))
-        mkdir_if_not_exists(Path("/userdata/" + cachedir))
+        mkdir_if_not_exists(Path("/userdata/system/.cache"))
+        mkdir_if_not_exists(Path("/userdata/system/.cache/"+emudir))
 
         #remove game_list if it exists and isn't a link
         if os.path.exists("/userdata/system/.cache/"+emudir+"/game_list"):
             if not os.path.islink("/userdata/system/.cache/"+emudir+"/game_list"):
                 shutil.rmtree("/userdata/system/.cache/"+emudir+"/game_list")
 
-        mkdir_if_not_exists(Path("/userdata/save/yuzu"))
-        mkdir_if_not_exists(Path("/userdata/save/yuzu/game_list"))
+        mkdir_if_not_exists(Path("/userdata/saves/yuzu"))
+        mkdir_if_not_exists(Path("/userdata/saves/yuzu/game_list"))
         if not os.path.exists("/userdata/system/.cache/"+emudir+"/game_list"):
             st = os.symlink("/userdata/saves/yuzu/game_list","/userdata/system/.cache/"+emudir+"/game_list")
 
