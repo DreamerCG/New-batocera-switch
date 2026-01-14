@@ -21,28 +21,34 @@ export QT_FONT_DPI=96
 export QT_SCALE_FACTOR=1
 export GDK_SCALE=1
 
-# Détection Steam Deck
-is_steamdeck() {
-    local pname vendor
+# # Détection Steam Deck
+# is_steamdeck() {
+    # local pname vendor
 
-    pname=$(cat /sys/class/dmi/id/product_name 2>/dev/null | tr '[:upper:]' '[:lower:]')
-    vendor=$(cat /sys/class/dmi/id/sys_vendor 2>/dev/null | tr '[:upper:]' '[:lower:]')
+    # pname=$(cat /sys/class/dmi/id/product_name 2>/dev/null | tr '[:upper:]' '[:lower:]')
+    # vendor=$(cat /sys/class/dmi/id/sys_vendor 2>/dev/null | tr '[:upper:]' '[:lower:]')
 
-    [[ "$pname" == "jupiter" ]] && return 0
-    [[ "$pname" == "galileo" ]] && return 0
-    [[ "$pname" == *"steam deck"* ]] && return 0
+    # [[ "$pname" == "jupiter" ]] && return 0
+    # [[ "$pname" == "galileo" ]] && return 0
+    # [[ "$pname" == *"steam deck"* ]] && return 0
 
-    return 1
-}
+    # return 1
+# }
 
-if is_steamdeck; then
-    export SDL_JOYSTICK_HIDAPI=0
-    export SDL_JOYSTICK_RAWINPUT=0
-    echo "Steam Deck détecté → SDL_JOYSTICK_HIDAPI=0 (for trackpad mouse)"
-else
-    export SDL_JOYSTICK_HIDAPI=1
-    echo "Machine standard → SDL_JOYSTICK_HIDAPI=1"
-fi
+# if is_steamdeck; then
+    # export SDL_JOYSTICK_HIDAPI=0
+    # export SDL_JOYSTICK_RAWINPUT=0
+    # echo "Steam Deck détecté → SDL_JOYSTICK_HIDAPI=0 (for trackpad mouse)"
+# else
+    # export SDL_JOYSTICK_HIDAPI=1
+    # echo "Machine standard → SDL_JOYSTICK_HIDAPI=1"
+# fi
+
+export SDL_JOYSTICK_HIDAPI=1
+export SDL_JOYSTICK_HIDAPI_XBOX=0
+export SDL_JOYSTICK_HIDAPI_XBOX_ONE=0
+export SDL_JOYSTICK_HIDAPI_SWITCH=0
+export SDL_JOYSTICK_HIDAPI_STEAMDECK=0
 
 batocera-mouse show
 
